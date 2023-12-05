@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int multiplyIntArray(int *ArrayToMultiply, int sizeOfArray) {
+unsigned long multiplyIntArray(int *ArrayToMultiply, int sizeOfArray) {
     int n = sizeOfArray / 4;
-    int product = 1;
+    unsigned long product = 1;
 
     if (n == 0) {
         // printf("Array is empty!");
@@ -13,7 +13,7 @@ int multiplyIntArray(int *ArrayToMultiply, int sizeOfArray) {
             // printf("%d ", (*ArrayToMultiply + i));
         }
     }
-    // printf("\n\nThe product of the array is %d", product);
+    printf("\nThe product of the array is %lu\n", product);
 
     return product;
 }
@@ -31,17 +31,17 @@ double nilakantha(int accuracy) {
     for (int i = 0; i < accuracy; i++) {
         switch (i % 2) {
             case 0:  // even
-                PICalc += (4.0 / (float) multiplyIntArray(array, sizeof(array)));
+                PICalc += ((float) 4.0 / (float) multiplyIntArray(array, sizeof(array)));
                 break;
             case 1:  // odd
-                PICalc -= (4.0 / (float) multiplyIntArray(array, sizeof(array)));
+                PICalc -= ((float) 4 / (float) multiplyIntArray(array, sizeof(array)));
                 break;
             default:
                 printf("Error");
                 exit(22);
                 break;
         }
-        // printf("Before: %d %d %d", array[0], array[1], array[2]);
+        printf("Before: %d %d %d\t%d", array[0], array[1], array[2], i);
         arrayShift(array, sizeof(array));
         // printf("\tAfter: %d %d %d\n", array[0], array[1], array[2]);
     }
@@ -64,7 +64,10 @@ int main() {  // How the fuck did I mess up the int main so much i literally
     // printf("\n%d\n\n", sizeof(array));
     // multiplyIntArray(array, sizeof(array));
 
-    printf("%.20f", nilakantha(100000000));
+    printf("%.20f", nilakantha(813));
+
+    int array[] = {1626, 1627, 1628};
+    printf("\n\n%lu\n\n", multiplyIntArray(array, sizeof(array)));
 
     printf("\n\n");
     return 0;

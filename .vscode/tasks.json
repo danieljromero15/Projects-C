@@ -1,7 +1,8 @@
 {
     "tasks": [
         {
-            "type": "cppbuild",
+            //"type": "cppbuild",
+            "type": "shell",
             "label": "C/C++: gcc build active file",
             "command": "",
             "linux": {
