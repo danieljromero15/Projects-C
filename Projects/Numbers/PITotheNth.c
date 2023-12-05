@@ -31,10 +31,10 @@ double nilakantha(int accuracy) {
     for (int i = 0; i < accuracy; i++) {
         switch (i % 2) {
             case 0:  // even
-                PICalc += (4.0 / multiplyIntArray(array, sizeof(array)));
+                PICalc += (4.0 / (float) multiplyIntArray(array, sizeof(array)));
                 break;
             case 1:  // odd
-                PICalc -= (4.0 / multiplyIntArray(array, sizeof(array)));
+                PICalc -= (4.0 / (float) multiplyIntArray(array, sizeof(array)));
                 break;
             default:
                 printf("Error");
@@ -64,7 +64,7 @@ int main() {  // How the fuck did I mess up the int main so much i literally
     // printf("\n%d\n\n", sizeof(array));
     // multiplyIntArray(array, sizeof(array));
 
-    printf("%.20f", nilakantha(10000));
+    printf("%.20f", nilakantha(100000000));
 
     printf("\n\n");
     return 0;

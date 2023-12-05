@@ -3,6 +3,7 @@
         {
             "type": "cppbuild",
             "label": "C/C++: gcc build active file",
+            "command": "",
             "linux": {
                 "command": "/usr/bin/gcc",
                 "args": [
@@ -23,7 +24,6 @@
                     "${fileDirname}\\${fileBasenameNoExtension}.exe"
                 ]
             },
-            "command": "",
             "options": {
                 "cwd": "${fileDirname}"
             },
