@@ -74,7 +74,7 @@ struct integerArray factorization(int n) {
     
     factors.intArray = resizeAndClearArray(n);
     factors.intArraySize = 0;
-    for (int i = 1; i <= n; ++i) {
+    for (int i = 2; i < n; ++i) {
         if (n % i == 0) {
             factors.intArray[factors.intArraySize] = i;
             ++factors.intArraySize;
@@ -85,13 +85,34 @@ struct integerArray factorization(int n) {
     return factors;
 }
 
+int* primeFactorizationRecursion(int n1, int n2, int* arrayToAddTo, int index){
+    if(isPrime(n1)){
+        arrayToAddTo[index] = n1;
+        ++index;
+    }
+
+    if(!isPrime(n2)){
+        int newPrime = n2 / factorization(n2).intArray[0];
+        primeFactorizationRecursion(newPrime, n2 / newPrime, arrayToAddTo, index);
+    }else if(isPrime(n2)){
+        arrayToAddTo[index + 1] = n2;
+    }else{
+        printf("\nError\n");
+        exit(0);
+    }
+
+    printIntArray(arrayToAddTo, index);
+
+    return arrayToAddTo;
+}
+
 struct integerArray primeFactorization(int startNum) {
     struct integerArray primeFactors;
 
     int *factorArray = factorization(startNum).intArray;
     int factorArraySize = factorization(startNum).intArraySize;
 
-    printf("%d", factorArraySize);
+    //printf("%d", factorArraySize);
 
     primeFactors.intArray = resizeAndClearArray(startNum * 8);
 
@@ -117,6 +138,7 @@ struct integerArray primeFactorization(int startNum) {
         printf("\nYour number is already prime!");
         exit(0);
     }*/
+    primeFactors.intArray = primeFactorizationRecursion(factorArray[0], factorArray[factorArraySize - 1], primeFactors.intArray, 0);
 
     printf("\nfinal: ");
     printIntArray(primeFactors.intArray, primeFactors.intArraySize);
@@ -132,8 +154,8 @@ int main() {
     scanf("%d", &numberToFind);
 
     // printf("%d", primeNumsBefore(numberToFind));
-    // struct integerArray primeNumArray = primeNumsBefore(numberToFind);
-    // printIntArray(primeNumArray.intArray, primeNumArray.intArraySize);
+    struct integerArray primeNumArray = primeNumsBefore(numberToFind);
+    printIntArray(primeNumArray.intArray, primeNumArray.intArraySize);
 
     printf("\n");
 
