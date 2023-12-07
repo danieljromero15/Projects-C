@@ -1,5 +1,7 @@
 *.py[cod]
 
+*.exe
+
 # C extensions
 *.so
 

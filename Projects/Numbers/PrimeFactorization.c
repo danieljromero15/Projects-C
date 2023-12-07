@@ -19,8 +19,7 @@ bool isPrime(int startNum) {  // just calculates if the number is prime
             }
         }
     } else {
-        printf("\nPlease provide a number greater than 1\n");
-        exit(0);
+        isPrimeBool = false;
     }
 
     // printf("\n");
@@ -41,7 +40,7 @@ long multiplyIntArray(int *ArrayToMultiply, int sizeOfArray) {
         product = 0;
     } else {
         for (int i = 0; i < sizeOfArray; i++) {
-            product *= (*ArrayToMultiply + i);
+            product *= *(ArrayToMultiply + i);
         }
     }
 
@@ -71,31 +70,28 @@ struct integerArray primeNumsBefore(int startNum) {
 
 struct integerArray factorization(int n) {
     struct integerArray factors;
-    
+
     factors.intArray = resizeAndClearArray(n);
     factors.intArraySize = 0;
     for (int i = 2; i < n; ++i) {
         if (n % i == 0) {
             factors.intArray[factors.intArraySize] = i;
             ++factors.intArraySize;
-            //factors.intArray = resizeAndClearArray(factors.intArraySize);
-            
+            // factors.intArray = resizeAndClearArray(factors.intArraySize);
         }
     }
     return factors;
 }
 
-int* primeFactorizationRecursion(int n1, int n2, int* arrayToAddTo, int index){
-    if(isPrime(n1)){
-        arrayToAddTo[index] = n1;
+/*int* primeFactorizationRecursion(int n1, int n2, int* arrayToAddTo, int
+index){ if(isPrime(n1)){ arrayToAddTo[index] = n1;
         ++index;
     }
 
     if(!isPrime(n2)){
         int newPrime = n2 / factorization(n2).intArray[0];
-        primeFactorizationRecursion(newPrime, n2 / newPrime, arrayToAddTo, index);
-    }else if(isPrime(n2)){
-        arrayToAddTo[index + 1] = n2;
+        arrayToAddTo = primeFactorizationRecursion(newPrime, n2 / newPrime,
+arrayToAddTo, index); }else if(isPrime(n2)){ arrayToAddTo[index + 1] = n2;
     }else{
         printf("\nError\n");
         exit(0);
@@ -104,7 +100,7 @@ int* primeFactorizationRecursion(int n1, int n2, int* arrayToAddTo, int index){
     printIntArray(arrayToAddTo, index);
 
     return arrayToAddTo;
-}
+}*/
 
 struct integerArray primeFactorization(int startNum) {
     struct integerArray primeFactors;
@@ -112,36 +108,51 @@ struct integerArray primeFactorization(int startNum) {
     int *factorArray = factorization(startNum).intArray;
     int factorArraySize = factorization(startNum).intArraySize;
 
-    //printf("%d", factorArraySize);
+    // printf("%d", factorArraySize);
 
-    primeFactors.intArray = resizeAndClearArray(startNum * 8);
+    //primeFactors.intArray = resizeAndClearArray(startNum * 8);
+    primeFactors.intArray = resizeAndClearArray(1024);
+
+    int n1 = factorArray[0];
+    int n2 = factorArray[factorArraySize - 1];
+
+    printf("factors: %d %d\n", n1, n2);
 
     primeFactors.intArraySize = 0;
     primeFactors.intArray[0] = 0;
-    /*if (!isPrime(startNum)) { // this entire thing needs to be changed to its own recursive function
-        //while (multiplyIntArray(primeFactors.intArray, primeFactors.intArraySize) != startNum) {
-        while (primeFactors.intArraySize < 10) {
-            //printf("product: %d\n", multiplyIntArray(primeFactors.intArray, primeFactors.intArraySize));
-            primeFactors.intArray[primeFactors.intArraySize] = factorArray[1];
 
-            if(!isPrime(factorArray[factorArraySize - 1])){
+    do {
+        int index1 = primeFactors.intArraySize;
+        int index2 = ++primeFactors.intArraySize;
 
-            }
+        primeFactors.intArray[index1] = n1;
+        primeFactors.intArray[index2] = n2;
 
+        printf("primeFactors: ");
+        printIntArray(primeFactors.intArray, primeFactors.intArraySize + 1);
 
-            ++primeFactors.intArraySize;
+        factorArray = factorization(n2).intArray;
+        factorArraySize =
+            factorization(n2).intArraySize;
 
-            //printIntArray(primeFactors.intArray, primeFactors.intArraySize);
-        }
-    } else {
-        primeFactors.intArray[primeFactors.intArraySize] = startNum;
-        printf("\nYour number is already prime!");
-        exit(0);
-    }*/
-    primeFactors.intArray = primeFactorizationRecursion(factorArray[0], factorArray[factorArraySize - 1], primeFactors.intArray, 0);
+        printf("factorArray: ");
+        printIntArray(factorArray, factorArraySize);
+
+        n1 = factorArray[0];
+        n2 = factorArray[factorArraySize - 1];
+
+        primeFactors.intArray[index2] = n1;
+        primeFactors.intArray[index2 + 1] = n2;
+
+    } while (!isPrime(n2));
+    //primeFactors.intArray[factorArraySize] = factorArray[factorArraySize - 1];
+    //++primeFactors.intArraySize;
+    // primeFactors.intArray = primeFactorizationRecursion(factorArray[0],
+    // factorArray[factorArraySize - 1], primeFactors.intArray, 0);
 
     printf("\nfinal: ");
     printIntArray(primeFactors.intArray, primeFactors.intArraySize);
+    printf("\nProduct: %d", multiplyIntArray(primeFactors.intArray, primeFactors.intArraySize));
     printf("\n");
 
     return primeFactors;

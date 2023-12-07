@@ -12,7 +12,7 @@ long multiplyIntArray(int *ArrayToMultiply, int sizeOfArray) {
         product = 0;
     } else {
         for (int i = 0; i < n; i++) {
-            product *= (*ArrayToMultiply + i);
+            product *= *(ArrayToMultiply + i);
             // printf("%d ", (*ArrayToMultiply + i));
         }
     }
