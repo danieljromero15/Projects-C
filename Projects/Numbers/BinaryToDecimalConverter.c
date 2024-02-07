@@ -9,7 +9,7 @@
 
 void printIntArray(const int *arrayToPrint, int sizeOfArray) {
     for (int i = 0; i < sizeOfArray; i++) {
-        printf("%d ", *(arrayToPrint + i));
+        printf("%d", *(arrayToPrint + i));
     }
 }
 
@@ -26,8 +26,26 @@ int *reverseIntArray(const int *intArrayToReverse, int intArrayToReverseLength){
     return &reversedArray[0];
 }
 
+unsigned long long longPow(int base, int power){
+    unsigned long long final = base;
+    for(int i=1; i < power; i++){
+        final *= base;
+    }
+    return final;
+}
 
-int convertToBinary(int decimalNumber) {
+unsigned long long arrayToInt(const int *arrayToConvert, int arrayToConvertSize){ // works up to 1048575
+    unsigned long long out = 0;
+    unsigned long long numberOfZeroes = longPow(10, arrayToConvertSize - 1);
+    for(int i=0; i < arrayToConvertSize; i++){
+        out += arrayToConvert[i] * numberOfZeroes;
+        numberOfZeroes /= 10;
+    }
+
+    return out;
+}
+
+unsigned long long convertToBinary(int decimalNumber) {
     int result = decimalNumber;
     int resultArrLength=0;
     int resultArrLengthTemp;
@@ -50,14 +68,15 @@ int convertToBinary(int decimalNumber) {
         }
 
 
-        printf("\nfinal:\n");
-        printIntArray(resultArr, resultArrLength);
+        //printf("\nfinal:\narr\t");
+        //printIntArray(resultArr, resultArrLength);
 
-        printf("\n");
+        //printf("\n");
 
         //printIntArray(reverseIntArray(resultArr, resultArrLength), resultArrLength);
+        //printf("int\t%llu", arrayToInt(resultArr, resultArrLength));
 
-        return 0;
+        return arrayToInt(resultArr, resultArrLength);
 
     } else if (decimalNumber < 0) {
         printf("\nnegative numbers not implemented yet\n");
@@ -69,11 +88,10 @@ int convertToBinary(int decimalNumber) {
 
 int main() {
     int numberToConvert = 0;
-    int result;
-    printf("Please input a number to convert to binary: ");
-    //scanf("%d", &numberToConvert);
+    printf("Please input a number to convert to binary (up to 1048575): ");
+    scanf("%d", &numberToConvert);
 
-    printf("\n\n%d", convertToBinary(100));
+    printf("\nBinary: %llu", convertToBinary(numberToConvert));
 
     //result = convertToBinary(numberToConvert);
     //printf("\nOutput: %d", result);
