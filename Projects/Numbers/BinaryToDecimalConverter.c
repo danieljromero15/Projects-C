@@ -7,11 +7,6 @@
 #include <stdio.h>
 #include <math.h>
 
-struct IntArray {
-    int arrayLength;
-    int array[];
-};
-
 void printIntArray(const int *arrayToPrint, int sizeOfArray) {
     for (int i = 0; i < sizeOfArray; i++) {
         printf("%d ", *(arrayToPrint + i));
@@ -32,7 +27,7 @@ int *reverseIntArray(const int *intArrayToReverse, int intArrayToReverseLength){
 }
 
 
-int *convertToBinary(int decimalNumber) {
+int convertToBinary(int decimalNumber) {
     int result = decimalNumber;
     int resultArrLength=0;
     int resultArrLengthTemp;
@@ -62,7 +57,7 @@ int *convertToBinary(int decimalNumber) {
 
         //printIntArray(reverseIntArray(resultArr, resultArrLength), resultArrLength);
 
-        return resultArr;
+        return 0;
 
     } else if (decimalNumber < 0) {
         printf("\nnegative numbers not implemented yet\n");
@@ -70,8 +65,6 @@ int *convertToBinary(int decimalNumber) {
     } else {
         return 0;
     }
-
-    return 0;
 }
 
 int main() {
@@ -80,7 +73,7 @@ int main() {
     printf("Please input a number to convert to binary: ");
     //scanf("%d", &numberToConvert);
 
-    printf("\n\n%lu", convertToBinary(42)); //should be 32 8 2
+    printf("\n\n%d", convertToBinary(100));
 
     //result = convertToBinary(numberToConvert);
     //printf("\nOutput: %d", result);
