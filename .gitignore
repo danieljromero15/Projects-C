@@ -39,3 +39,7 @@ nosetests.xml
 *.komodoproject
 
 .DS_Store
+
+*.exe
+.idea/
+.vscode/
