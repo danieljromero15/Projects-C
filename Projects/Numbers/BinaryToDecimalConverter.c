@@ -6,10 +6,23 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
+
+struct intArray {
+    int array[10];
+    int length;
+};
 
 void printIntArray(const int *arrayToPrint, int sizeOfArray) {
     for (int i = 0; i < sizeOfArray; i++) {
         printf("%d", *(arrayToPrint + i));
+    }
+}
+
+void printIntArrayStruct(struct intArray arrayToPrint) {
+    printf("\t");
+    for (int i = 0; i < arrayToPrint.length; i++) {
+        printf("%d", *(arrayToPrint.array + i));
     }
 }
 
@@ -43,6 +56,41 @@ unsigned long long arrayToInt(const int *arrayToConvert, int arrayToConvertSize)
     }
 
     return out;
+}
+
+int lenHelper(unsigned x) {
+    if (x >= 1000000000) return 10;
+    if (x >= 100000000) return 9;
+    if (x >= 10000000) return 8;
+    if (x >= 1000000) return 7;
+    if (x >= 100000) return 6;
+    if (x >= 10000) return 5;
+    if (x >= 1000) return 4;
+    if (x >= 100) return 3;
+    if (x >= 10) return 2;
+    return 1;
+}
+
+struct intArray splitIntIntoArray(unsigned long long intToSplit) {
+    int intToSplitLength = lenHelper(intToSplit);
+    struct intArray arrayToSplit;
+
+
+
+    arrayToSplit.length = intToSplitLength;
+    //printf("m%d", arrayToSplit.length);
+    for(int i = arrayToSplit.length; i >= 0; i--){
+
+        arrayToSplit.array[i] = (int) intToSplit % 10;
+        intToSplit /= 10;
+
+    }
+
+    arrayToSplit.length = intToSplitLength;
+    //printf("n%d", arrayToSplit.length);
+
+
+    return arrayToSplit;
 }
 
 unsigned long long convertToBinary(int decimalNumber) {
@@ -83,10 +131,22 @@ int main() {
     printf("Please input a positive number to convert to binary (up to 1048575): ");
     scanf("%u", &numberToConvert);
 
-    printf("\nBinary: %llu", convertToBinary(numberToConvert));
+    if (numberToConvert > 1048575) {
+        printf("\nPlease enter a number less than 1048575");
+        exit(0);
+    }
+    else {
 
-    //result = convertToBinary(numberToConvert);
-    //printf("\nOutput: %d", result);
+        unsigned long long result = convertToBinary(numberToConvert);
+        printf("\nBinary:\t%llu", result);
+        //printf("\n%d", splitIntIntoArray(result));
+        printf("\n");
+        struct intArray resultStruct = splitIntIntoArray(result);
+        //printf("\no%d\n", resultStruct.length);
+        printIntArrayStruct(resultStruct);
 
+        //result = convertToBinary(numberToConvert);
+        //printf("\nOutput: %d", result);
+    }
     return 0;
 }
