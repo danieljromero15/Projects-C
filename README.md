@@ -1,5 +1,5 @@
 ## IMPORTANT
-This main branch is blank. Separate languages are in each branch.
+The main branch is blank. Separate languages are in each branch.
 
 Mega Project List
 ========
