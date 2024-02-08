@@ -1,5 +1,7 @@
 ## IMPORTANT
-The main branch is blank. Separate languages are in each branch.
+The main branch is blank. Separate languages are in each branch.  
+[C](https://github.com/danieljromero15/Projects/tree/Python)  
+[Python](https://github.com/danieljromero15/Projects/tree/C)
 
 Mega Project List
 ========
