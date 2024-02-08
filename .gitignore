@@ -1,7 +1,5 @@
 *.py[cod]
 
-*.exe
-
 # C extensions
 *.so
 
@@ -42,5 +40,6 @@ nosetests.xml
 
 .DS_Store
 
-.vscode/
+*.exe
 .idea/
+.vscode/
