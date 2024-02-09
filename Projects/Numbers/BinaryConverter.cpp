@@ -2,17 +2,23 @@
 // Created by danie on 2/8/2024.
 //
 #include <iostream>
+#include "vector"
 
-int* toBinary(int decimalNumberInput){
-    int binaryArray[] = {1, 2, 3,4};
-    return &binaryArray[0];
+std::vector<int> toBinary(int max) {
+    std::vector<int> binaryArray;
+    for(int i = 0; i < max; i++){
+        binaryArray.push_back(i);
+    }
+    return binaryArray;
 }
 
-int main(){
-    int *binaryArray = toBinary(2);
+int main() {
+    std::vector<int> binaryArray = toBinary(5);
     //for(int i = 0; i < &binaryArray)
-    std::cout << sizeof(binaryArray); // this doesn't work, make an object
-    std::cout << "\n";
-    std::cout << toBinary(2);
+    //std::cout << sizeof(binaryArray); // this doesn't work, make an object
+    //std::cout << "\n";
+    for (auto it = binaryArray.begin(); it != binaryArray.end(); it++) {
+        std::cout << *it;
+    }
     return 0;
 }
