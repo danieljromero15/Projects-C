@@ -41,3 +41,5 @@ nosetests.xml
 .DS_Store
 
 *.exe
+.idea/
+.vscode/
