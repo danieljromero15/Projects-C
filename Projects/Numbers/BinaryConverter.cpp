@@ -27,6 +27,9 @@ std::vector<int> toBinary(unsigned long long decimalIn) {
     for (unsigned long long n = decimalIn; n > 0; n /= 2) {
         binaryVector.push_back((int) (n % 2));
     }
+    if (binaryVector.empty() && (decimalIn == 0)) {
+        binaryVector.push_back(0);
+    }
     binaryVector = reverseVector(binaryVector);
     return binaryVector;
 }
@@ -47,10 +50,11 @@ int main() {
 
     std::vector<int> binaryVector = toBinary(decimalIn);
     std::string binary = printIntVector(binaryVector);
-    std::cout << "Binary:\t\t\t\t" << binary << "\n";
+    std::cout << "Binary:\t\t\t" << binary << "\n";
 
     std::cout << "Back to decimal:\t" << toDecimal(binary) << "\n";
 
     //std::cout << "\t\t\t\t\t" << decimalIn;
+    std::cout << "\n";
     return 0;
 }
