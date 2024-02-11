@@ -3,7 +3,7 @@
 //
 #include <iostream>
 #include <climits>
-#include "printVectors.h"
+#include "printCollections.h"
 
 int main(){
     std::vector<std::string> strVector;

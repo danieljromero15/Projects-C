@@ -4,10 +4,10 @@
 #include "vector"
 #include "string"
 
-#ifndef PROJECTS_PRINTVECTORS_H
-#define PROJECTS_PRINTVECTORS_H
+#ifndef PROJECTS_PRINTCOLLECTIONS_H
+#define PROJECTS_PRINTCOLLECTIONS_H
 
-#endif //PROJECTS_PRINTVECTORS_H
+#endif //PROJECTS_PRINTCOLLECTIONS_H
 
 template <class T>
 std::string printVector(std::vector<T> &vectorToPrint, const std::string &separator){
