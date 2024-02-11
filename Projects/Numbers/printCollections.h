@@ -54,3 +54,7 @@ std::string printTuple(std::tuple<T, T> tupleToPrint, const std::string &separat
     out += std::to_string(std::get<1>(tupleToPrint));
     return out;
 }
+
+template <class T> std::string printTuple(std::tuple<T, T> tupleToPrint){
+    return printTuple(tupleToPrint, "");
+}
