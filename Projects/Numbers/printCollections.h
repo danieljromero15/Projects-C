@@ -51,6 +51,6 @@ template <class T>
 std::string printTuple(std::tuple<T, T> tupleToPrint, const std::string &separator){
     std::string out;
     out += std::to_string(std::get<0>(tupleToPrint)) + separator;
-    out += std::to_string(std::get<0>(tupleToPrint));
+    out += std::to_string(std::get<1>(tupleToPrint));
     return out;
 }
