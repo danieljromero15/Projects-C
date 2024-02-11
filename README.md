@@ -1,8 +1,8 @@
 ## IMPORTANT
 The main branch is blank. Separate languages are in each branch.  
-[C](https://github.com/danieljromero15/Projects/tree/Python)
-[C++](https://github.com/danieljromero15/Projects/tree/C%2B%2B)
-[Python](https://github.com/danieljromero15/Projects/tree/C)
+[C](https://github.com/danieljromero15/Projects/tree/Python)  
+[C++](https://github.com/danieljromero15/Projects/tree/C%2B%2B)  
+[Python](https://github.com/danieljromero15/Projects/tree/C)  
 
 Mega Project List
 ========
