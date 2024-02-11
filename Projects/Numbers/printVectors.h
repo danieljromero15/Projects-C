@@ -10,50 +10,27 @@
 
 #endif //PROJECTS_PRINTVECTORS_H
 
-std::string printIntVector(std::vector<int> &vectorToPrint, const std::string& separator) {
+template <class T>
+std::string printVector(std::vector<T> &vectorToPrint, const std::string &separator){
     std::string out;
-    for (int &it: vectorToPrint) {
+    for(T &it: vectorToPrint){
         out += std::to_string(it) + separator;
     }
     return out;
 }
 
-std::string printIntVector(std::vector<unsigned long long> &vectorToPrint, const std::string& separator) {
+template<> std::string printVector<char>(std::vector<char> &vectorToPrint, const std::string &separator){
     std::string out;
-    for (unsigned long long &it: vectorToPrint) {
-        out += std::to_string(it) + separator;
-    }
-    return out;
-}
-
-std::string printIntVector(std::vector<unsigned long long> &vectorToPrint) {
-    return printIntVector(vectorToPrint, " ");
-}
-
-std::string printIntVector(std::vector<int> &vectorToPrint) {
-    return printIntVector(vectorToPrint, " ");
-}
-
-std::string printDoubleVector(std::vector<double> &vectorToPrint, const std::string& separator) {
-    std::string out;
-    for (double &it: vectorToPrint) {
-        out += std::to_string(it) + separator;
-    }
-    return out;
-}
-
-std::string printDoubleVector(std::vector<double> &vectorToPrint) {
-    return printDoubleVector(vectorToPrint, " ");
-}
-
-std::string printStringVector(std::vector<std::string> &vectorToPrint, const std::string& separator) {
-    std::string out;
-    for (std::string &it: vectorToPrint) {
+    for(char &it: vectorToPrint){
         out += it + separator;
     }
     return out;
 }
 
-std::string printStringVector(std::vector<std::string> &vectorToPrint) {
-    return printStringVector(vectorToPrint, " ");
+template<> std::string printVector<std::string>(std::vector<std::string> &vectorToPrint, const std::string &separator){
+    std::string out;
+    for(std::string &it: vectorToPrint){
+        out += it + separator;
+    }
+    return out;
 }
