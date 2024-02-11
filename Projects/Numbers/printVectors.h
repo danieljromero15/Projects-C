@@ -19,12 +19,20 @@ std::string printVector(std::vector<T> &vectorToPrint, const std::string &separa
     return out;
 }
 
-template<> std::string printVector<char>(std::vector<char> &vectorToPrint, const std::string &separator){
+template<class T> std::string printVector(std::vector<T> &vectorToPrint){
+    return printVector<T>(vectorToPrint, "");
+}
+
+template<> std::string printVector<char>(std::vector<char> &vectorToPrint, const std::string &separator) {
     std::string out;
-    for(char &it: vectorToPrint){
+    for (char &it: vectorToPrint) {
         out += it + separator;
     }
     return out;
+}
+
+template<> std::string printVector<char>(std::vector<char> &vectorToPrint){
+    return printVector<char>(vectorToPrint, "");
 }
 
 template<> std::string printVector<std::string>(std::vector<std::string> &vectorToPrint, const std::string &separator){
@@ -33,4 +41,8 @@ template<> std::string printVector<std::string>(std::vector<std::string> &vector
         out += it + separator;
     }
     return out;
+}
+
+template<> std::string printVector<std::string>(std::vector<std::string> &vectorToPrint){
+    return printVector<std::string>(vectorToPrint, "");
 }

@@ -28,11 +28,11 @@ int main(){
     charVector.push_back('c');
     charVector.push_back('h');
 
-    std::cout << printVector<int>(intVector, " ") << "\n";
+    std::cout << printVector<int>(intVector) << "\n";
     std::cout << printVector<double>(doubleVector, " ") << "\n";
     std::cout << printVector<std::string>(strVector, " ") << "\n";
     std::cout << printVector<unsigned long long>(ullongVector, " ") << "\n";
-    std::cout << printVector<char>(charVector, " ") << "";
+    std::cout << printVector<char>(charVector) << "";
 
     return 0;
 }
