@@ -3,6 +3,7 @@
 //
 #include "vector"
 #include "string"
+#include "tuple"
 
 #ifndef PROJECTS_PRINTCOLLECTIONS_H
 #define PROJECTS_PRINTCOLLECTIONS_H
@@ -44,4 +45,12 @@ template<> std::string printVector<std::string>(std::vector<std::string> &vector
 
 template<> std::string printVector<std::string>(std::vector<std::string> &vectorToPrint){
     return printVector<std::string>(vectorToPrint, "");
+}
+
+template <class T>
+std::string printTuple(std::tuple<T, T> tupleToPrint, const std::string &separator){
+    std::string out;
+    out += std::to_string(std::get<0>(tupleToPrint)) + separator;
+    out += std::to_string(std::get<0>(tupleToPrint));
+    return out;
 }

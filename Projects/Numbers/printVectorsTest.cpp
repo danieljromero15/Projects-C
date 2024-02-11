@@ -4,6 +4,7 @@
 #include <iostream>
 #include <climits>
 #include "printCollections.h"
+#include "tuple"
 
 int main(){
     std::vector<std::string> strVector;
@@ -28,11 +29,16 @@ int main(){
     charVector.push_back('c');
     charVector.push_back('h');
 
-    std::cout << printVector<int>(intVector) << "\n";
-    std::cout << printVector<double>(doubleVector, " ") << "\n";
-    std::cout << printVector<std::string>(strVector, " ") << "\n";
-    std::cout << printVector<unsigned long long>(ullongVector, " ") << "\n";
-    std::cout << printVector<char>(charVector) << "";
+    std::cout << printVector<>(intVector) << "\n";
+    std::cout << printVector<>(doubleVector, " ") << "\n";
+    std::cout << printVector<>(strVector, " ") << "\n";
+    std::cout << printVector<>(ullongVector, " ") << "\n";
+    std::cout << printVector<>(charVector) << "" << "\n";
+
+    std::tuple<int, int> testTuple = std::make_tuple(1, 2);
+
+    std::cout << "Tuple Size: " << std::tuple_size<decltype(testTuple)>::value << "\n";
+    std::cout << printTuple(testTuple, "\t") << "\n";
 
     return 0;
 }
