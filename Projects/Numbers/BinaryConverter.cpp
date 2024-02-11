@@ -1,5 +1,6 @@
 //
 // Created by danie on 2/8/2024.
+// Tested on Linux kernel 6.7.3-200.fc39.x86_64
 //
 #include <iostream>
 #include <vector>
