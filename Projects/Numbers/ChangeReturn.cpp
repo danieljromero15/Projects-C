@@ -15,13 +15,23 @@ std::tuple<int, int, int, int> calculateChange(double value) {
     int* pennies =      &std::get<3>(change);
 
 
-    double remainder = fmodf( (float) value, 0.25);
+    float remainder = fmodf( (float) value, 0.25);
     *quarters = (int) ((value - remainder) / 0.25);
+    value -= *quarters * 0.25;
 
+    remainder = fmodf((float) value, 0.10);
+    *dimes = (int) ((value - remainder) / 0.10);
+    value -= *dimes * 0.10;
 
+    remainder = fmodf((float) value, 0.05);
+    *nickels = (int) ((value - remainder) / 0.05);
+    value -= *nickels * 0.05;
 
+    remainder = fmodf((float) value, 0.01);
+    *pennies = (int) ((value - remainder) / 0.01);
+    value-= *pennies * 0.01;
 
-    std::cout << remainder << " " << *quarters << " " << 0.5 / 0.25 << "\n";
+    std::cout << remainder << "\n";
 
     return change;
 }
@@ -38,18 +48,21 @@ std::string printResults(std::tuple<int, int, int, int> tupleToPrint) {
     out += "Nickels: " + std::to_string(nickels) + "\n";
     out += "Pennies: " + std::to_string(dimes) + "\n";
 
-    double total =
+    float total =
             (quarters * 0.25) +
             (dimes * 0.10) +
             (nickels * 0.05) +
             (pennies * 0.01);
 
-    out += "\nTotal: " + std::to_string(total) + "\n";
+    out += "\nTotal: " + std::to_string(total); + "\n";
     return out;
 }
 
 int main() {
-    double dollarValue = 0.64;
+    float dollarValue = 0.64;
+    std::cout << "Value: ";
+    std::cin >> dollarValue;
+
     std::tuple<int, int, int, int> results = calculateChange(dollarValue);
     std::cout << printResults(results);
 
