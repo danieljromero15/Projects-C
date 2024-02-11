@@ -6,6 +6,7 @@
 #include <vector>
 #include <climits>
 #include <cmath>
+#include "printVectors.h"
 
 std::vector<int> reverseVector(std::vector<int> vectorToReverse) {
     std::vector<int> reversedVector(vectorToReverse.size());
@@ -13,14 +14,6 @@ std::vector<int> reverseVector(std::vector<int> vectorToReverse) {
         reversedVector.at(i) = vectorToReverse.at(vectorToReverse.size() - i - 1);
     }
     return reversedVector;
-}
-
-std::string printIntVector(std::vector<int> &vectorToPrint) {
-    std::string out;
-    for (int &it: vectorToPrint) {
-        out += std::to_string(it);
-    }
-    return out;
 }
 
 std::vector<int> toBinary(unsigned long long decimalIn) {
@@ -50,7 +43,7 @@ int main() {
     std::cin >> decimalIn;
 
     std::vector<int> binaryVector = toBinary(decimalIn);
-    std::string binary = printIntVector(binaryVector);
+    std::string binary = printVector<int>(binaryVector, "");
     std::cout << "Binary:\t\t\t" << binary << "\n";
 
     std::cout << "Back to decimal:\t" << toDecimal(binary) << "\n";

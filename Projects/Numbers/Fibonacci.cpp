@@ -4,17 +4,9 @@
 //
 #include <vector>
 #include "iostream"
+#include "printVectors.h"
 
-std::string printIntVector(const std::vector<unsigned long long>& vectorToPrint) {
-    std::string out;
-    for (unsigned long long it: vectorToPrint) {
-        //out += std::to_string(i++) + " " + std::to_string(it) + "\n";
-        out += std::to_string(it) + "\n";
-    }
-    return out;
-}
-
-std::vector<unsigned long long int> fibonacci(int max){
+std::vector<unsigned long long> fibonacci(int max){
     std::vector<unsigned long long> fibonacciVector;
 
     fibonacciVector.push_back(0);
@@ -32,7 +24,8 @@ int main(){
     std::cout << "Max index (max 94): ";
     std::cin >> n;
 
-    std::cout << printIntVector(fibonacci(n));
+    std::vector<unsigned long long> fibonacciVector = fibonacci(n);
+    std::cout << printVector<unsigned long long>(fibonacciVector, "\n");
 
     return 0;
 }
