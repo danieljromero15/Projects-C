@@ -58,3 +58,22 @@ std::string printTuple(std::tuple<T, T> tupleToPrint, const std::string &separat
 template <class T> std::string printTuple(std::tuple<T, T> tupleToPrint){
     return printTuple(tupleToPrint, "");
 }
+
+template <class T>
+std::string printTuple(std::tuple<T, T, T> tupleToPrint, const std::string &separator){
+    std::string out;
+    out += std::to_string(std::get<0>(tupleToPrint)) + separator;
+    out += std::to_string(std::get<1>(tupleToPrint)) + separator;
+    out += std::to_string(std::get<2>(tupleToPrint));
+    return out;
+}
+
+template <class T>
+std::string printTuple(std::tuple<T, T, T, T> tupleToPrint, const std::string &separator){
+    std::string out;
+    out += std::to_string(std::get<0>(tupleToPrint)) + separator;
+    out += std::to_string(std::get<1>(tupleToPrint)) + separator;
+    out += std::to_string(std::get<2>(tupleToPrint)) + separator;
+    out += std::to_string(std::get<3>(tupleToPrint));
+    return out;
+}
