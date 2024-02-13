@@ -44,3 +44,4 @@ nosetests.xml
 .idea/
 .vscode/
 out/
+.vs/
