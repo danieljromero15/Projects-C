@@ -113,7 +113,8 @@ map<pair<string, int>, city_info> readWorldCities(const string &filePath) {
         }
         file.close();
     } else {
-        cout << "Unable to open data file";
+        cout
+                << "Unable to open data file.\nPlease put worldcities.csv in the same folder as the executable or specify the path of the file as a command line argument";
         exit(0);
     }
 
@@ -139,6 +140,7 @@ pair<string, int> checkForDuplicates(const string &cityName) {
             if (cin.fail()) {
                 cin.clear();
                 cin.sync();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 continue;
             } else if (selection > 0 && selection <= duplicates.size()) {
                 selection--;
@@ -167,16 +169,18 @@ double calculateDistance(const pair<string, int> &city1, const pair<string, int>
 
 int main(int argc, char *argv[]) {
     //cities_data_map = readWorldCities("../Projects/Numbers/distance_between_two_cities_data/worldcities.csv");
+    string filePath = "worldcities.csv";
     if (argc >= 2) {
-        for (int i = 0; i < argc; i++) {
-            std::cout << argv[i];
+        filePath = "";
+        for (int i = 1; i < argc; i++) {
+            filePath += argv[i];
         }
-    } else {
-        cities_data_map = readWorldCities("worldcities.csv");
     }
+    cities_data_map = readWorldCities(filePath);
+
     pair<string, int> city1, city2;
     string input1;// = "New York";
-    string input2;// = "San Francisco";
+    string input2 = "\u200B";// = "San Francisco";
     bool valid_city1 = false;
     bool valid_city2 = false;
 
@@ -192,24 +196,26 @@ int main(int argc, char *argv[]) {
                 continue;
             } else {
                 valid_city1 = true;
+                city1 = checkForDuplicates(input1);
             }
         }
-
-        city1 = checkForDuplicates(input1);
 
         cin.clear();
         cin.sync();
 
-        cout << "City 2: ";
+        if (input2 != "\u200B") {
+            cout << "City 2: ";
+        }
         std::getline(cin, input2);
         cin.clear();
         cin.sync();
         if (!cities_data_map.count(std::make_pair(input2, 0))) {
-            cout << "Please enter a valid city!\n";
+            if (input2 != "") { cout << "Please enter a valid city!\n"; }
+            continue;
         } else {
             valid_city2 = true;
+            city2 = checkForDuplicates(input2);
         }
-        city2 = checkForDuplicates(input2);
     }
 
     cout << "\n";
