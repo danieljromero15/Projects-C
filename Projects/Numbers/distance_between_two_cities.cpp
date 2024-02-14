@@ -11,7 +11,6 @@
 #include <map>
 #include <cmath>
 #include <vector>
-#include <limits>
 
 using std::cout;
 using std::cin;
@@ -122,7 +121,7 @@ map<pair<string, int>, city_info> readWorldCities(const string &filePath) {
 
 }
 
-pair<string, int> checkForDuplicates(string cityName) {
+pair<string, int> checkForDuplicates(const string &cityName) {
     std::vector<std::tuple<string, string, double, double>> duplicates = returnDuplicates(cityName, cities_data_map);
     int selection = 0;
     if (duplicates.size() == 1) {
@@ -134,8 +133,7 @@ pair<string, int> checkForDuplicates(string cityName) {
             printCityData(std::make_pair(cityName, i));
             cout << "\n";
         }
-        bool selected = false;
-        while (!selected) {
+        while (true) {
             cout << "Please make a selection: ";
             cin >> selection;
             if (cin.fail()) {
@@ -143,7 +141,6 @@ pair<string, int> checkForDuplicates(string cityName) {
                 cin.sync();
                 continue;
             } else if (selection > 0 && selection <= duplicates.size()) {
-                selected = true;
                 selection--;
 
                 return std::make_pair(cityName, selection);
@@ -168,9 +165,15 @@ double calculateDistance(const pair<string, int> &city1, const pair<string, int>
     return result * 6371;
 }
 
-int main() {
-    //cities_data_map = readWorldCities("../Projects/Numbers/distance_between_two_cities_data/testdb.csv");
-    cities_data_map = readWorldCities("../Projects/Numbers/distance_between_two_cities_data/worldcities.csv");
+int main(int argc, char *argv[]) {
+    //cities_data_map = readWorldCities("../Projects/Numbers/distance_between_two_cities_data/worldcities.csv");
+    if (argc >= 2) {
+        for (int i = 0; i < argc; i++) {
+            std::cout << argv[i];
+        }
+    } else {
+        cities_data_map = readWorldCities("worldcities.csv");
+    }
     pair<string, int> city1, city2;
     string input1;// = "New York";
     string input2;// = "San Francisco";
@@ -184,7 +187,6 @@ int main() {
             std::getline(cin, input1);
             cin.clear();
             cin.sync();
-            //cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             if (!cities_data_map.count(std::make_pair(input1, 0))) {
                 cout << "Please enter a valid city!\n";
                 continue;
@@ -215,10 +217,6 @@ int main() {
     cout << "\n";
     printCityData(city2);
     cout << "\n";
-
-    /*std::vector<std::tuple<string, string, double, double>> duplicates = returnDuplicates(input1, cities_data_map);
-    for(int i = 0; i < duplicates.size(); i++){
-    cout << printTuple(duplicates[i], " ");}*/
 
     cout << "\nDistance between " << city1.first << " and " << city2.first << ": ";
 
