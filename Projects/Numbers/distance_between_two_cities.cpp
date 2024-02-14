@@ -4,36 +4,97 @@
 //              This program may require finding coordinates for the cities like latitude and longitude.
 //
 
-#include <unordered_map>
 #include <string>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <map>
 #include <cmath>
+#include <vector>
+#include <limits>
+
+using std::cout;
+using std::cin;
+using std::string;
+using std::pair;
+using std::map;
 
 struct city_info {
-    std::string country;
+    string country;
     double lat{}; // positive is N, negative is S
     double lng{}; // positive is E, negative is W
 };
 
-std::unordered_map<std::string, city_info> cities_data_map;
+map<pair<string, int>, city_info> cities_data_map;
 
-std::unordered_map<std::string, city_info> readWorldCities(const std::string &filePath) {
-    std::unordered_map<std::string, city_info> cities;
+void printCityData(const pair<string, int> &cityKey) {
+    //cout << cityKey.first << cityKey.second << ", ";
+    cout << cityKey.first << ", ";
+
+    city_info cityInfo = cities_data_map[cityKey];
+
+    string country = cityInfo.country;
+    double lat = cityInfo.lat;
+    double lng = cityInfo.lng;
+
+    cout << country << " ";
+
+    cout << std::abs(lat);
+    if (lat != std::abs(lat)) { // if lat is S
+        cout << "S";
+    } else { // lat is N
+        cout << "N";
+    }
+
+    cout << " " << std::abs(lng);
+    if (lng != std::abs(lng)) { // if lng is W
+        cout << "W";
+    } else { // lng is E
+        cout << "E";
+    }
+}
+
+void assignValues(const string &cityName, int n, map<pair<string, int>, city_info> &mapToWriteTo,
+                  const city_info &tempData) {
+    if (mapToWriteTo.count(std::make_pair(cityName, n))) {
+        assignValues(cityName, n + 1, mapToWriteTo, tempData);
+        //printCityData(lineArray[0], 1);
+    } else {
+        mapToWriteTo[std::make_pair(cityName, n)] = tempData;
+        //printCityData(lineArray[0], 0);
+    }
+}
+
+std::vector<std::tuple<string, string, double, double>>
+returnDuplicates(const string &cityName, map<pair<string, int>, city_info> mapToRead) {
+    int n = 0;
+    std::vector<std::tuple<string, string, double, double>> duplicates;
+    std::tuple<string, string, double, double> cityTuple;
+
+    while (mapToRead.count(std::make_pair(cityName, n))) {
+        city_info info = mapToRead[std::make_pair(cityName, n)];
+        cityTuple = std::make_tuple(cityName, info.country, info.lat, info.lng);
+        duplicates.push_back(cityTuple);
+        n++;
+    }
+
+    return duplicates;
+}
+
+map<pair<string, int>, city_info> readWorldCities(const string &filePath) {
+    map<pair<string, int>, city_info> cities;
 
     std::fstream file(filePath);
-    std::string line;
+    string line;
 
     if (file.is_open()) {
-        //std::cout << "file open" << "\n";
+        //cout << "file open" << "\n";
         int n = 0; // 0: city 1: country 2: lat 3:long
         while (getline(file, line)) { // whole file
             std::stringstream ss(line);
-            std::string lineArray[4];
+            string lineArray[4];
             while (getline(ss, line, ',')) { // each line
-                //std::cout << n << "\t" << line <<  "\n";
+                //cout << n << "\t" << line <<  "\n";
                 lineArray[n] = line;
                 n++;
                 if (n > 3) {
@@ -41,7 +102,10 @@ std::unordered_map<std::string, city_info> readWorldCities(const std::string &fi
                     tempData.country = lineArray[1];
                     tempData.lat = std::stod(lineArray[2]);
                     tempData.lng = std::stod(lineArray[3]);
-                    cities[lineArray[0]] = tempData;
+
+                    //pair cityKey = std::make_pair(lineArray[0], 0);
+                    assignValues(lineArray[0], 0, cities, tempData);
+
 
                     n = 0; // resets counter
                 }
@@ -50,7 +114,7 @@ std::unordered_map<std::string, city_info> readWorldCities(const std::string &fi
         }
         file.close();
     } else {
-        std::cout << "Unable to open data file";
+        cout << "Unable to open data file";
         exit(0);
     }
 
@@ -58,25 +122,34 @@ std::unordered_map<std::string, city_info> readWorldCities(const std::string &fi
 
 }
 
-void printCityData(const std::string &in) {
-    std::cout << in << ", ";
-    std::cout << cities_data_map[in].country << " ";
+pair<string, int> checkForDuplicates(string cityName) {
+    std::vector<std::tuple<string, string, double, double>> duplicates = returnDuplicates(cityName, cities_data_map);
+    int selection = 0;
+    if (duplicates.size() == 1) {
+        return std::make_pair(cityName, selection);
+    } else {
+        cout << "Duplicates found.\n";
+        for (int i = 0; i < duplicates.size(); i++) {
+            cout << "\t" << i + 1 << ": ";
+            printCityData(std::make_pair(cityName, i));
+            cout << "\n";
+        }
+        bool selected = false;
+        while (!selected) {
+            cout << "Please make a selection: ";
+            cin >> selection;
+            if (cin.fail()) {
+                cin.clear();
+                cin.sync();
+                continue;
+            } else if (selection > 0 && selection <= duplicates.size()) {
+                selected = true;
+                selection--;
 
-    double lat = cities_data_map[in].lat;
-    double lng = cities_data_map[in].lng;
-
-    std::cout << std::abs(lat);
-    if (lat != std::abs(lat)) { // if lat is S
-        std::cout << "S";
-    } else { // lat is N
-        std::cout << "N";
-    }
-
-    std::cout << " " << std::abs(lng);
-    if (lng != std::abs(lng)) { // if lng is W
-        std::cout << "W";
-    } else { // lng is E
-        std::cout << "E";
+                return std::make_pair(cityName, selection);
+            }
+            cout << "Please type a number between 1 and " << duplicates.size();
+        }
     }
 }
 
@@ -84,7 +157,7 @@ double toRadians(double in) {
     return in * (M_PI / 180);
 }
 
-double calculateDistance1(const std::string &city1, const std::string &city2) {
+double calculateDistance(const pair<string, int> &city1, const pair<string, int> &city2) {
     double lat1 = toRadians(cities_data_map[city1].lat);
     double lon1 = toRadians(cities_data_map[city1].lng);
     double lat2 = toRadians(cities_data_map[city2].lat);
@@ -96,44 +169,62 @@ double calculateDistance1(const std::string &city1, const std::string &city2) {
 }
 
 int main() {
+    //cities_data_map = readWorldCities("../Projects/Numbers/distance_between_two_cities_data/testdb.csv");
     cities_data_map = readWorldCities("../Projects/Numbers/distance_between_two_cities_data/worldcities.csv");
-    std::string input1;
-    std::string input2;
+    pair<string, int> city1, city2;
+    string input1;// = "New York";
+    string input2;// = "San Francisco";
     bool valid_city1 = false;
     bool valid_city2 = false;
 
-    std::cout << "\nPlease enter two cities to calculate the distance between:\n";
+    cout << "\nPlease enter two cities to calculate the distance between:\n";
     while (!valid_city1 || !valid_city2) {
         if (!valid_city1) {
-            std::cout << "City 1: ";
-            std::getline(std::cin, input1);
-            if (cities_data_map.find(input1) == cities_data_map.end()) {
-                std::cout << "Please enter a valid city!\n";
+            cout << "City 1: ";
+            std::getline(cin, input1);
+            cin.clear();
+            cin.sync();
+            //cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            if (!cities_data_map.count(std::make_pair(input1, 0))) {
+                cout << "Please enter a valid city!\n";
                 continue;
             } else {
                 valid_city1 = true;
             }
         }
 
-        std::cout << "City 2: ";
-        std::getline(std::cin, input2);
-        if (cities_data_map.find(input2) == cities_data_map.end()) {
-            std::cout << "Please enter a valid city!\n";
+        city1 = checkForDuplicates(input1);
+
+        cin.clear();
+        cin.sync();
+
+        cout << "City 2: ";
+        std::getline(cin, input2);
+        cin.clear();
+        cin.sync();
+        if (!cities_data_map.count(std::make_pair(input2, 0))) {
+            cout << "Please enter a valid city!\n";
         } else {
             valid_city2 = true;
         }
+        city2 = checkForDuplicates(input2);
     }
 
-    std::cout << "\n";
-    printCityData(input1);
-    std::cout << "\n";
-    printCityData(input2);
+    cout << "\n";
+    printCityData(city1);
+    cout << "\n";
+    printCityData(city2);
+    cout << "\n";
 
-    std::cout << "\nDistance between " << input1 << " and " << input2 << ": ";
+    /*std::vector<std::tuple<string, string, double, double>> duplicates = returnDuplicates(input1, cities_data_map);
+    for(int i = 0; i < duplicates.size(); i++){
+    cout << printTuple(duplicates[i], " ");}*/
 
-    double distance1 = calculateDistance1(input1, input2);
+    cout << "\nDistance between " << city1.first << " and " << city2.first << ": ";
 
-    std::cout << distance1 << "km\n";
+    double distance1 = calculateDistance(city1, city2);
+
+    cout << distance1 << "km\n";
 
     return 0;
 }
