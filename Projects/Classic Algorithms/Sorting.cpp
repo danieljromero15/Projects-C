@@ -30,11 +30,31 @@ vector<T> vectorPart(vector<T> vector1, int begin, int end) {
 
 template<class T>
 vector<T> mergeSort(vector<T> arrayToSort) {
-    auto sortedArray = arrayToSort;
+    auto originalArray = arrayToSort;
+    vector<T> sortedArray;
+    vector<vector<T>> sortedParts;
     for(int i = 1; i <= arrayToSort.size(); i++){
-        vector<T> part1 = vectorPart(arrayToSort, 0, (int)(arrayToSort.size() / 2*i) - 1);
-        vector<T> part2 = vectorPart(arrayToSort, (int)(arrayToSort.size() / 2 * i), (int)arrayToSort.size() - 1);
+        vector<T> part1 = vectorPart(originalArray, 0, (int)(originalArray.size() / (2*i)));
+        vector<T> part2 = vectorPart(originalArray, (int)(originalArray.size() / (2 * i)) + 1, (int)originalArray.size() - 1);
+        std::cout << printVector(part1, " ") << "| ";
+        std::cout << printVector(part2, " ") << endl;
+        if(part1.size() == 2){
+            originalArray = part2;
+            T temp1 = part1[0];
+            T temp2 = part1[1];
+            if(temp1 > temp2){
+                part1[0] = temp2;
+                part1[1] = temp1;
+            }
+
+            sortedParts.push_back(part1);
+        }
+        if(part1.size() == 1){
+
+        }
     }
+
+    std::cout << "sortedparts " << printVector(sortedParts[0], " ") << endl;
 
     return sortedArray;
 }
@@ -44,7 +64,8 @@ T *copyArray(T arrayToCopy[], int arraySize) {}
 
 int main() {
     //vector<int> array = {52, 45, 1, 90, 35}; // 1, 35, 45, 52, 90
-    vector<int> array = {38, 27, 43, 3, 9, 82, 10};
+    //vector<int> array = {38, 27, 43, 3, 9, 82, 10};
+    vector<int> array = {43, 3, 9, 82, 10};
 
     //vector<int> newArray = mergeSort<int>(array);
     //std::cout << (int) array.size() / 2 << endl;
@@ -54,9 +75,9 @@ int main() {
     auto sortedArray = mergeSort(array);
 
     //std::cout << "array:" << endl;
-    std::cout << printVector(array, " ") << std::endl;
+    std::cout << "original: " << printVector(array, " ") << std::endl;
     //std::cout << "new array:" << endl;
     //std::cout << printVector(newArray1, " ") << std::endl;
     //std::cout << printVector(newArray2, " ") << std::endl;
-    std::cout << printVector(sortedArray, " ") << endl;
+    std::cout << "sorted: " << printVector(sortedArray, " ") << endl;
 }
