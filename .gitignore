@@ -45,3 +45,4 @@ nosetests.xml
 .vscode/
 out/
 .vs/
+IPdb/
