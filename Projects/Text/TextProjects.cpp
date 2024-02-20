@@ -9,7 +9,7 @@
 using std::cout;
 
 int main(int argc, char *argv[]) {
-    std::string word = "racecar is cool";
+    std::string word = "racecar";
     if (argc >= 2) {
         // cmdline arguments var definition go here
         word = std::string(argv[1]);
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     //std::vector<std::string> vectorSentence = sentenceToVector(word);
     //cout << printVector(vectorSentence, " ") << std::endl;
 
-    std::cout << "Number of words: " << numOfWords(word);
+    std::cout << "Number of words: " << numOfWords(word) << std::endl;
 
     return 0;
 }

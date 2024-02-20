@@ -4,6 +4,7 @@
 
 #include <string>
 #include <array>
+#include <utility>
 #include <vector>
 
 #ifndef PROJECTS_TEXT_OPERATIONS_H
@@ -41,10 +42,18 @@ std::vector<string> sentenceToVector(string sentence) {
             word = "";
         }
     }
-    if (word.length() > 0) {
+    if (!word.empty()) {
         output.push_back(word);
     }
     return output;
+}
+
+// Count Words in a String - Counts the number of individual words in a string.
+// For added complexity read these strings in from a text file and generate a summary.
+
+int numOfWords(string sentence){
+    std::vector<string> sentenceVector = sentenceToVector(std::move(sentence));
+    return (int)sentenceVector.size();
 }
 
 //Reverse a String - Enter a string and the program will reverse it and print it out.
@@ -60,20 +69,31 @@ string reverseString(string stringToReverse) {
 // To create the Pig Latin form of an English word the initial consonant sound is transposed to the end of the word and an ay is affixed (Ex.: "banana" would yield anana-bay).
 // Read Wikipedia for more information on rules.
 
-string pigLatin(string word) {
-    word = toLower(word);
-    //std::cout << isVowel(word[0]) << std::endl;
-    if (isVowel(word[0])) {
-        word += "way";
-    } else {
-        char temp = word[0];
-        word = word.substr(1, word.length());
-        //std::cout << word << std::endl;
-        word += temp;
-        word += "ay";
+string pigLatin(string toTranslate) {
+    toTranslate = toLower(toTranslate);
+    std::vector<string> words = sentenceToVector(toTranslate);
+    std::string out;
+
+    for(int i = 0; i < words.size(); i++){
+        string word = words[i];
+        if (isVowel(word[0])) {
+            word += "way";
+        } else {
+            char temp = word[0];
+            word = word.substr(1, toTranslate.length());
+            //std::cout << toTranslate << std::endl;
+            word += temp;
+            word += "ay";
+        }
+        words[i] = word;
+    }
+    //std::cout << isVowel(toTranslate[0]) << std::endl;
+
+    for(string &it: words){
+        out += it + " ";
     }
 
-    return word;
+    return out;
 }
 
 // Count Vowels - Enter a string and the program counts the number of vowels in the text.
@@ -121,12 +141,4 @@ bool isPalindrome(string word) {
         }
     }
     return true;
-}
-
-// Count Words in a String - Counts the number of individual words in a string.
-// For added complexity read these strings in from a text file and generate a summary.
-
-int numOfWords(string sentence){
-    std::vector<string> sentenceVector = sentenceToVector(sentence);
-    return sentenceVector.size();
 }
