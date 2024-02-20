@@ -32,7 +32,7 @@ bool isVowel(char c) {
     }
 }
 
-std::string stringToLower(std::string word) {
+std::string toLower(std::string word) {
     for (int i = 0; i < word.length(); i++) { // converts whole word to lowercase
         word[i] = (char) tolower(word[i]);
     }
@@ -40,7 +40,7 @@ std::string stringToLower(std::string word) {
 }
 
 std::string pigLatin(std::string word) {
-    word = stringToLower(word);
+    word = toLower(word);
     //std::cout << isVowel(word[0]) << std::endl;
     if (isVowel(word[0])) {
         word += "way";
@@ -60,7 +60,7 @@ std::string pigLatin(std::string word) {
 
 std::array<int, 5> vowelsCount(std::string word) {
     std::array vowels = {0, 0, 0, 0, 0};
-    word = stringToLower(word);
+    word = toLower(word);
 
     for (char c: word) {
         if (isVowel(c)) {
@@ -86,4 +86,18 @@ std::array<int, 5> vowelsCount(std::string word) {
         }
     }
     return vowels;
+}
+
+// Check if Palindrome - Checks if the string entered by the user is a palindrome.
+// That is that it reads the same forwards as backwards like “racecar”
+
+bool isPalindrome(std::string word){
+    word = toLower(word);
+    for(int i = 0; i < word.length() / 2; i++){
+        //std::cout << "comparing " << word[i] << " and " << word[word.length() - i - 1] << std::endl;
+        if(word[i] != word[word.length() - i - 1]){
+            return false;
+        }
+    }
+    return true;
 }

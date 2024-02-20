@@ -7,7 +7,7 @@
 #include "../.headers/printCollections.h"
 
 int main(int argc, char *argv[]) {
-    std::string word = "Hello";
+    std::string word = "racecar";
     if (argc >= 2) {
         // cmdline arguments var definition go here
         word = std::string(argv[1]);
@@ -22,6 +22,14 @@ int main(int argc, char *argv[]) {
     std::array<int, 5> vowelsCountArray = vowelsCount(word);
     std::cout << "Vowels count: " << printArray<5>(vowelsCountArray, " ") << std::endl;
     std::cout << "\ta: " << vowelsCountArray[0] << "\n\te: " << vowelsCountArray[1] << "\n\ti: " << vowelsCountArray[2] << "\n\to: " << vowelsCountArray[3] << "\n\tu: " << vowelsCountArray[4] << std::endl;
+
+    std::cout << "Is " << word << " a palindrome? ";
+    if(isPalindrome(word)){
+        std::cout << "Yes";
+    }else{
+        std::cout << "No";
+    }
+    std::cout << std::endl;
 
     return 0;
 }
