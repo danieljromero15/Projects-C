@@ -74,8 +74,8 @@ string pigLatin(string toTranslate) {
     std::vector<string> words = sentenceToVector(toTranslate);
     std::string out;
 
-    for(int i = 0; i < words.size(); i++){
-        string word = words[i];
+    for(auto & i : words){
+        string word = i;
         if (isVowel(word[0])) {
             word += "way";
         } else {
@@ -85,7 +85,7 @@ string pigLatin(string toTranslate) {
             word += temp;
             word += "ay";
         }
-        words[i] = word;
+        i = word;
     }
     //std::cout << isVowel(toTranslate[0]) << std::endl;
 

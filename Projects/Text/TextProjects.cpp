@@ -9,10 +9,14 @@
 using std::cout;
 
 int main(int argc, char *argv[]) {
-    std::string word = "racecar";
+    std::string word = "Hello";
     if (argc >= 2) {
         // cmdline arguments var definition go here
-        word = std::string(argv[1]);
+        word = "";
+        for(int i = 1; i < argc; i++){
+            word += std::string(argv[i]) + " ";
+        }
+        word.pop_back(); // removes space
     }
 
     cout << "Word is: " << word << std::endl;
