@@ -4,15 +4,52 @@
 
 #include <string>
 #include <array>
+#include <vector>
 
 #ifndef PROJECTS_TEXT_OPERATIONS_H
 #define PROJECTS_TEXT_OPERATIONS_H
 
 #endif //PROJECTS_TEXT_OPERATIONS_H
 
+using std::string;
+
+bool isVowel(char c) {
+    const string vowels = "aeiouAEIOU";
+    if (vowels.find(c) != string::npos) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+string toLower(string word) {
+    for (int i = 0; i < word.length(); i++) { // converts whole word to lowercase
+        word[i] = (char) tolower(word[i]);
+    }
+    return word;
+}
+
+std::vector<string> sentenceToVector(string sentence) {
+    std::string word;
+    std::vector<string> output;
+
+    for (int i = 0; i < sentence.length(); i++) {
+        if (sentence[i] != ' ') {
+            word += sentence[i];
+        } else {
+            output.push_back(word);
+            word = "";
+        }
+    }
+    if (word.length() > 0) {
+        output.push_back(word);
+    }
+    return output;
+}
+
 //Reverse a String - Enter a string and the program will reverse it and print it out.
-std::string reverseString(std::string stringToReverse) {
-    std::string reversedString(stringToReverse.length(), ' ');
+string reverseString(string stringToReverse) {
+    string reversedString(stringToReverse.length(), ' ');
     for (int i = 0; i < stringToReverse.length(); i++) {
         reversedString[i] = stringToReverse[stringToReverse.length() - i - 1];
     }
@@ -23,23 +60,7 @@ std::string reverseString(std::string stringToReverse) {
 // To create the Pig Latin form of an English word the initial consonant sound is transposed to the end of the word and an ay is affixed (Ex.: "banana" would yield anana-bay).
 // Read Wikipedia for more information on rules.
 
-bool isVowel(char c) {
-    const std::string vowels = "aeiouAEIOU";
-    if (vowels.find(c) != std::string::npos) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-std::string toLower(std::string word) {
-    for (int i = 0; i < word.length(); i++) { // converts whole word to lowercase
-        word[i] = (char) tolower(word[i]);
-    }
-    return word;
-}
-
-std::string pigLatin(std::string word) {
+string pigLatin(string word) {
     word = toLower(word);
     //std::cout << isVowel(word[0]) << std::endl;
     if (isVowel(word[0])) {
@@ -58,7 +79,7 @@ std::string pigLatin(std::string word) {
 // Count Vowels - Enter a string and the program counts the number of vowels in the text.
 // For added complexity have it report a sum of each vowel found.
 
-std::array<int, 5> vowelsCount(std::string word) {
+std::array<int, 5> vowelsCount(string word) {
     std::array vowels = {0, 0, 0, 0, 0};
     word = toLower(word);
 
@@ -91,13 +112,21 @@ std::array<int, 5> vowelsCount(std::string word) {
 // Check if Palindrome - Checks if the string entered by the user is a palindrome.
 // That is that it reads the same forwards as backwards like “racecar”
 
-bool isPalindrome(std::string word){
+bool isPalindrome(string word) {
     word = toLower(word);
-    for(int i = 0; i < word.length() / 2; i++){
+    for (int i = 0; i < word.length() / 2; i++) {
         //std::cout << "comparing " << word[i] << " and " << word[word.length() - i - 1] << std::endl;
-        if(word[i] != word[word.length() - i - 1]){
+        if (word[i] != word[word.length() - i - 1]) {
             return false;
         }
     }
     return true;
+}
+
+// Count Words in a String - Counts the number of individual words in a string.
+// For added complexity read these strings in from a text file and generate a summary.
+
+int numOfWords(string sentence){
+    std::vector<string> sentenceVector = sentenceToVector(sentence);
+    return sentenceVector.size();
 }
