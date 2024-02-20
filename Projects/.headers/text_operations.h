@@ -80,6 +80,8 @@ std::array<int, 5> vowelsCount(std::string word) {
                 case 'u':
                     vowels[4]++;
                     break;
+                default:
+                    break;
             }
         }
     }
