@@ -18,6 +18,7 @@ int main(int argc, char *argv[]) {
 
     std::cout << "Pig latin: " << pigLatin(word) << std::endl;
 
-    //std::cout << word << std::endl;
+    std::cout << "Vowels count: ";
+
     return 0;
 }
