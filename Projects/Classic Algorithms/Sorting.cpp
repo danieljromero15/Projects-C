@@ -5,7 +5,7 @@
 
 #include <vector>
 #include <iostream>
-#include "printCollections.h"
+#include "../.headers/printCollections.h"
 
 using std::vector;
 
@@ -23,7 +23,7 @@ vector<T> mergeSort(vector<T> toSort){
         }else{
             sorted.push_back(toSort[i+1]);
             sorted.push_back(toSort[i]);
-        };
+        }
     }
 
     return sorted;

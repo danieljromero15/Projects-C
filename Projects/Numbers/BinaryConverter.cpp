@@ -6,7 +6,7 @@
 #include <vector>
 #include <climits>
 #include <cmath>
-#include "printCollections.h"
+#include "../.headers/printCollections.h"
 
 std::vector<int> reverseVector(std::vector<int> vectorToReverse) {
     std::vector<int> reversedVector(vectorToReverse.size());

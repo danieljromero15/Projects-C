@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "text_operations.h"
+#include "../.headers/text_operations.h"
 
 int main(int argc, char *argv[]) {
     std::string word = "Hello";

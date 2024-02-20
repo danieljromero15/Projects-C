@@ -5,7 +5,7 @@
 
 #include <vector>
 #include <iostream>
-#include "printCollections.h"
+#include "../.headers/printCollections.h"
 
 bool isPrime(int n);
 

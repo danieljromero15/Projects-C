@@ -4,7 +4,7 @@
 
 #include <vector>
 #include <iostream>
-#include "printCollections.h"
+#include "../.headers/printCollections.h"
 #include <algorithm>
 
 int main(int argc, char *argv[]) {
