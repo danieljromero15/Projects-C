@@ -4,6 +4,7 @@
 #include "vector"
 #include "string"
 #include "tuple"
+#include "array"
 
 #ifndef PROJECTS_PRINTCOLLECTIONS_H
 #define PROJECTS_PRINTCOLLECTIONS_H
@@ -75,5 +76,25 @@ std::string printTuple(std::tuple<T, T, T, T> tupleToPrint, const std::string &s
     out += std::to_string(std::get<1>(tupleToPrint)) + separator;
     out += std::to_string(std::get<2>(tupleToPrint)) + separator;
     out += std::to_string(std::get<3>(tupleToPrint));
+    return out;
+}
+
+template <class T, int N>
+std::string printArray(std::array<T, N> arrayToPrint, const std::string &separator){
+    std::string out;
+    for(T item : arrayToPrint){
+        out += item;
+        out += separator;
+    }
+    return out;
+}
+
+template <int N>
+std::string printArray(std::array<int, N> arrayToPrint, const std::string &separator){
+    std::string out;
+    for(int item : arrayToPrint){
+        out += std::to_string(item);
+        out += separator;
+    }
     return out;
 }
