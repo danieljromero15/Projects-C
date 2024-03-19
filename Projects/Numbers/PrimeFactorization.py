@@ -39,4 +39,5 @@ def prime_factorization(number):
 
 
 if __name__ == '__main__':
-    print(prime_factorization(330))
+    num = int(input("Enter a number: "))
+    print(prime_factorization(num))
